@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Myro Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+            background: linear-gradient(135deg, red, yellow, blue, pink, red);
+            background-size: 400% 400%;
+            animation: gradient 10s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            25% {
+                background-position: 100% 50%;
+            }
+            50% {
+                background-position: 0% 50%;
+            }
+            75% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .background-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 5s ease-in-out;
+        }
+        .content {
+            position: absolute;
+            z-index: 1;
+            text-align: center;
+            color: white;
+        }
+        .logo {
+            position: absolute;
+            top: -520px;
+            left: -725px;
+            width: 200px;
+        }
+        .top-content h1, .top-content p {
+            margin: 0;
+            padding: 0;
+        }
+        .button {
+            font-family: 'Poppins', sans-serif;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            text-align: center;
+            font-size: 23px;
+            cursor: pointer;
+            border-radius: 40px;
+            margin-top: 10px;
+            transition: all 0.3s ease-in-out;
+        }
+        .auth-buttons .button {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            padding: 18px 60px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 15px rgba(0, 114, 255, 0.7);
+            margin-bottom: 20px;
+        }
+        .auth-buttons .button:hover {
+            transform: translateY(-4px) scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 198, 255, 0.9);
+            border-color: #00c6ff;
+            background: linear-gradient(135deg, #00ff99, #00c6ff);
+        }
+        .auth-buttons .button:active {
+            transform: scale(0.98);
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.6);
+        }
+        .register-button {
+            text-decoration: none;  /* Убирает подчеркивание */
+            color: inherit;         /* Убирает возможное изменение цвета при наведении */
+        }
+        .bubble {
+            animation: moveBubble 10s linear infinite;
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+        }
+        .button span {
+            margin-right: 10px;
+            font-size: 1.5rem;
+            vertical-align: middle;
+        }
+        @keyframes moveBubble {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(var(--x), var(--y));
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background" id="background1" style="background: linear-gradient(135deg, #f06, #f79);"></div>
+        <div class="background" id="background2" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></div>
+        <div class="background" id="background3" style="background: linear-gradient(135deg, #ff00ff, #ff004c);"></div>
+    </div>
+    <div class="content">
+        <img src="logo.png" alt="Logo" class="logo">
+        <div class="top-content">
+            <h1>Welcome To Myro Panel!</h1>
+            <p>Panel for generator and API key connection</p>
+        </div>
+        <div class="auth-buttons">
+            <button class="button"><span class="material-icons">login</span> Login</button>
+            <a href="/register" class="button register-button"><span class="material-icons">person_add</span> Register</a>
+        </div>
+    </div>
+    <script>
+        function createBubbles() {
+            for (let i = 0; i < 50; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const x = Math.random() * 200 - 100 + 'vw';
+                const y = Math.random() * 200 - 100 + 'vh';
+                bubble.style.setProperty('--x', x);
+                bubble.style.setProperty('--y', y);
+                document.body.appendChild(bubble);
+
+                bubble.addEventListener('animationiteration', () => {
+                    const newX = Math.random() * 200 - 100 + 'vw';
+                    const newY = Math.random() * 200 - 100 + 'vh';
+                    bubble.style.setProperty('--x', newX);
+                    bubble.style.setProperty('--y', newY);
+                });
+            }
+        }
+        createBubbles();
+    </script>
+    <script>
+        let currentIndex = 0;
+        const backgrounds = document.querySelectorAll('.background');
+        const buttonStyles = [
+            { background: 'linear-gradient(135deg, #00c6ff, #0072ff)', shadow: '0 0 15px rgba(0, 114, 255, 0.7)' }, 
+            { background: 'linear-gradient(135deg, #f06, #f79)', shadow: '0 0 15px rgba(255, 0, 255, 0.7)' },        
+            { background: 'linear-gradient(135deg, #ff00ff, #ff004c)', shadow: '0 0 15px rgba(255, 0, 76, 0.7)' }   
+        ];
+        backgrounds[currentIndex].style.opacity = 1;
+        function changeBackground() {
+            backgrounds[currentIndex].style.opacity = 0;
+            currentIndex = (currentIndex + 1) % backgrounds.length;
+            backgrounds[currentIndex].style.opacity = 1;
+            document.querySelectorAll('.button').forEach(btn => {
+                const style = buttonStyles[currentIndex];
+                btn.style.background = style.background;
+                btn.style.boxShadow = style.shadow;
+            });
+        }
+        setInterval(changeBackground, 5000);
+    </script>
+</body>
+</html>

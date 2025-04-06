@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create API Key</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #ff416c, #ff4b2b, #1e3c72, #2a5298);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(15px);
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      color: white;
+      width: 420px;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      font-weight: 600;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-size: 16px;
+      font-weight: 400;
+      text-align: left;
+    }
+
+    .dropdown {
+      position: relative;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .dropdown-selected {
+      background-color: rgba(255,255,255,0.15);
+      padding: 12px;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.3);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .dropdown-selected:hover {
+      background-color: rgba(255,255,255,0.25);
+    }
+
+    .dropdown-options {
+      display: none;
+      position: absolute;
+      width: 100%;
+      background-color: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      z-index: 1000;
+      margin-top: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .option {
+      padding: 12px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      text-align: center;
+    }
+
+    .option:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group i {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      transform: translateY(-50%);
+      color: #00c6ff;
+      font-size: 18px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px 12px 40px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      transition: background 0.3s;
+      display: block;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    .input-group input:focus {
+      background: rgba(255,255,255,0.25);
+    }
+
+    /* Кастомный number input */
+    .number-input {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 15px;
+    }
+
+    .number-input input {
+      border: none;
+      text-align: center;
+      flex: 1;
+      background: transparent;
+      color: white;
+      font-size: 16px;
+      height: 45px;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: textfield;
+    }
+
+    .number-input button {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, transform 0.2s ease;
+      padding: 0;
+    }
+
+    .number-input button:active {
+      transform: scale(0.9);
+    }
+
+    .number-input button i {
+      color: white;
+      font-size: 18px;
+      pointer-events: none;
+    }
+
+    .number-input button:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+      font-weight: 600;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(255, 75, 43, 0.7);
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        width: 90%;
+        padding: 30px;
+      }
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Creation API Key</h2>
+    <form action="/create_key" method="POST">
+      <label for="duration">Validity:</label>
+      <div class="dropdown">
+        <div class="dropdown-selected" id="selectedValue">Choose an expiration date</div>
+        <div class="dropdown-options" id="optionsList">
+          <div class="option">1 Hour</div>
+          <div class="option">2 Hours</div>
+          <div class="option">3 Hours</div>
+          <div class="option">4 Hours</div>
+          <div class="option">5 Hours</div>
+          <div class="option">6 Hours</div>
+          <div class="option">7 Hours</div>
+          <div class="option">8 Hours</div>
+          <div class="option">9 Hours</div>
+          <div class="option">10 Hours</div>
+          <div class="option">11 Hours</div>
+          <div class="option">12 Hours</div>
+          <div class="option">1 Day</div>
+          <div class="option">2 Days</div>
+          <div class="option">3 Days</div>
+          <div class="option">1 Week</div>
+          <div class="option">2 Weeks</div>
+          <div class="option">3 Weeks</div>
+          <div class="option">1 Month</div>
+          <div class="option">2 Months</div>
+          <div class="option">3 Months</div>
+          <div class="option">1 Year</div>
+          <div class="option">2 Years</div>
+          <div class="option">3 Years</div>
+          <div class="option">4 Years</div>
+          <div class="option">5 Years</div>
+        </div>
+        <input type="hidden" name="duration" id="durationInput" required />
+      </div>
+
+      <label for="devices">Number of devices:</label>
+      <div class="number-input">
+        <button type="button" class="btn-decrease" aria-label="Decrease">
+          <i class="fas fa-minus"></i>
+        </button>
+        <input type="number" id="devices" name="devices" value="1" min="1" max="100000" required />
+        <button type="button" class="btn-increase" aria-label="Increase">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+
+      <button type="submit" class="btn">Create API Key</button>
+    </form>
+  </div>
+
+  <script>
+    const selected = document.getElementById('selectedValue');
+    const optionsList = document.getElementById('optionsList');
+    const hiddenInput = document.getElementById('durationInput');
+
+    selected.addEventListener('click', () => {
+      optionsList.style.display = optionsList.style.display === 'block' ? 'none' : 'block';
+    });
+
+    document.querySelectorAll('.option').forEach(option => {
+      option.addEventListener('click', () => {
+        selected.textContent = option.textContent;
+        hiddenInput.value = option.textContent;
+        optionsList.style.display = 'none';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown')) {
+        optionsList.style.display = 'none';
+      }
+    });
+
+    const input = document.getElementById('devices');
+    document.querySelector('.btn-increase').addEventListener('click', () => {
+      let val = parseInt(input.value || "0");
+      if (val < parseInt(input.max)) input.value = val + 1;
+    });
+
+    document.querySelector('.btn-decrease').addEventListener('click', () => {
+      let val = parseInt(input.value || "0");
+      if (val > parseInt(input.min)) input.value = val - 1;
+    });
+  </script>
+</body>
+</html>

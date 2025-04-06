@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ключ создан</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(-45deg, #ff416c, #ff4b2b, #1e90ff, #00c6ff);
+      background-size: 400% 400%;
+      animation: gradient 12s ease infinite;
+      color: white;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.75);
+      padding: 35px 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      max-width: 420px;
+      width: 90%;
+      animation: fadeIn 1s ease;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 600;
+      margin-bottom: 25px;
+    }
+
+    .info {
+      font-size: 18px;
+      margin: 12px 0;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .info i {
+      font-size: 20px;
+      color: #00c6ff;
+      margin-right: 12px;
+    }
+
+    .label {
+      display: flex;
+      align-items: center;
+    }
+
+    .api-key-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .copy-btn {
+      background: #0080ff;
+      border: none;
+      color: white;
+      font-size: 14px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      background: #00a5dd;
+    }
+
+    .home-button {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 28px;
+      font-size: 17px;
+      color: white;
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .home-button:hover {
+      background: linear-gradient(135deg, #ff4b2b, #ff416c);
+      transform: translateY(-3px);
+    }
+
+    .home-button i {
+      margin-right: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-check-circle" style="color: #00c6ff; margin-right: 10px;"></i>Ключ успешно создан</h1>
+
+    <div class="info">
+      <div class="label"><i class="fas fa-key"></i> Ключ:</div>
+      <div class="api-key-group">
+        <strong id="key">{{ api_key }}</strong>
+        <button class="copy-btn" onclick="copyKey(this)"><i class="fas fa-copy"></i></button>
+      </div>
+    </div>
+
+    <div class="info">
+      <div class="label"><i class="far fa-clock"></i> Срок:</div>
+      <strong>{{ duration }}</strong>
+    </div>
+
+    <div class="info">
+      <div class="label"><i class="fas fa-mobile-alt"></i> Девайсов:</div>
+      <strong>{{ devices }}</strong>
+    </div>
+
+    <a href="/dashboard" class="home-button">
+      <i class="fas fa-home"></i> Домой
+    </a>
+  </div>
+
+  <script>
+    function copyKey(btn) {
+      const keyText = document.getElementById("key").innerText;
+      navigator.clipboard.writeText(keyText).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-check"></i>';
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+        }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>

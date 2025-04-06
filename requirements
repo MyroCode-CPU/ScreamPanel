@@ -1,0 +1,8 @@
+Flask==2.2.2
+requests
+gunicorn
+python-dotenv
+flask-cors
+flask-wtf
+flask-paginate
+flask

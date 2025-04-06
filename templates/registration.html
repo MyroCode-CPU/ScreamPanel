@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Myro Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #000000;
+            position: relative;
+            transition: background-color 1s ease-in-out;
+        }
+        .background-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 1;
+            transition: opacity 5s ease-in-out;
+        }
+        .bubble {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: moveBubble 10s linear infinite, blurEffect 5s ease-in-out infinite;
+        }
+        @keyframes moveBubble {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+        .registration-box {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 0, 221, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            color: white;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 350px;
+        }
+        .registration-box h2 {
+            margin-bottom: 25px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .input-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .input-group label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .input-group input:focus {
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 0 10px rgba(0, 198, 255, 0.7);
+        }
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        .register-button {
+            align-self: center;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            font-size: 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 15px rgba(0, 114, 255, 0.7);
+            margin-top: 20px;
+        }
+        .register-button:disabled {
+            background: grey;
+            cursor: not-allowed;
+        }
+        @keyframes glowingText {
+            0% {
+                color: #ff0000;
+            }
+            25% {
+                color: #d9ff00;
+            }
+            50% {
+                color: #0000ff;
+            }
+            75% {
+                color: #ff00ff;
+            }
+            100% {
+                color: #ff0000;
+            }
+        }
+        #login-link {
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            animation: glowingText 3s ease-in-out infinite;
+        }
+        #login-link:hover {
+            text-decoration: underline;
+        }
+        .auth-link {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: white;
+        }
+        .auth-link a {
+            color: #fb00ff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+        .flash {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .flash.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .flash.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .auth-link a:hover {
+            color: #ff0088;
+        }
+        .register-button:hover:enabled {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgb(255, 0, 234);
+        }
+        .register-button:focus {
+            outline: none;
+        }
+        .password-requirements {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 10px;
+        } 
+        .password-requirements p {
+            margin: 5px 0;
+        }
+        .valid {
+            color: green;
+        }
+        .invalid {
+            color: red;
+        }
+        .valid::before {
+            content: '✔';
+            margin-right: 10px;
+        }
+        .invalid::before {
+            content: '✘';
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background" id="background1" style="background: linear-gradient(135deg, #f06, #f79);"></div>
+        <div class="background" id="background2" style="background: linear-gradient(135deg, #00c6ff, #0072ff);"></div>
+        <div class="background" id="background3" style="background: linear-gradient(135deg, #ff00ff, #ff004c);"></div>
+    </div>
+    <script>
+        let backgrounds = document.querySelectorAll('.background');
+let currentIndex = 0;
+
+function changeBackground() {
+    backgrounds.forEach((bg, index) => {
+        bg.style.opacity = index === currentIndex ? '1' : '0';
+    });
+
+    currentIndex = (currentIndex + 1) % backgrounds.length;
+}
+
+setInterval(changeBackground, 5000); // Меняет фон каждые 5 секунд
+changeBackground(); // Запускаем сразу при загрузке
+        function createBubbles() {
+            for (let i = 0; i < 150; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+                const x = Math.random() * 200 - 100 + 'vw';
+                const y = Math.random() * 200 - 100 + 'vh';
+                bubble.style.setProperty('--x', x);
+                bubble.style.setProperty('--y', y);
+                document.body.appendChild(bubble);
+
+                bubble.addEventListener('animationiteration', () => {
+                    const newX = Math.random() * 200 - 100 + 'vw';
+                    const newY = Math.random() * 200 - 100 + 'vh';
+                    bubble.style.setProperty('--x', newX);
+                    bubble.style.setProperty('--y', newY);
+                });
+            }
+        }
+        createBubbles();
+    </script>
+ <div class="registration-box">
+    <h2>Register Myro Panel</h2>
+    <div class="input-group">
+        <label>Login</label>
+        <input type="text" id="login" placeholder="Enter Login">
+    </div>
+    <div class="input-group">
+        <label>Password</label>
+        <input type="password" id="password" placeholder="Enter Password" oninput="validatePassword()">
+        <div class="password-requirements">
+            <p id="length-check" class="invalid">From 6-12 characters</p>
+            <p id="uppercase-check" class="invalid">One uppercase letter</p>
+            <p id="number-check" class="invalid">Number</p>
+            <p id="symbol-check" class="invalid">Special character</p>
+        </div>
+    </div>
+    <div class="input-group">
+        <label>Confirm Password</label>
+        <input type="password" id="confirm-password" placeholder="Confirm password" oninput="validatePassword()">
+    </div>
+    <div class="input-group">
+        <label>Referral Code</label>
+        <input type="text" id="referral-code" name="referral_code" required placeholder="Enter referral code">
+    </div>
+    <button class="register-button" id="register-btn" disabled onclick="registerUser()">Register</button>
+    <div class="auth-link">
+        <p>Already have an account? <a href="#" id="login-link">Login</a></p>
+    </div>
+    <div id="error-message" style="color: red; display: none;">Error message here</div>
+</div>
+
+<script>
+    const passwordInput = document.getElementById("password");
+    const confirmPasswordInput = document.getElementById("confirm-password");
+    const registerBtn = document.getElementById("register-btn");
+    const errorMessage = document.getElementById("error-message");
+
+    function validatePassword() {
+        const password = passwordInput.value;
+        const confirmPassword = confirmPasswordInput.value;
+        const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{6,12}$/;
+
+        let lengthCheck = document.getElementById("length-check");
+        let uppercaseCheck = document.getElementById("uppercase-check");
+        let numberCheck = document.getElementById("number-check");
+        let symbolCheck = document.getElementById("symbol-check");
+
+        // Проверка длины
+        if (password.length >= 6 && password.length <= 12) {
+            lengthCheck.classList.remove('invalid');
+            lengthCheck.classList.add('valid');
+        } else {
+            lengthCheck.classList.remove('valid');
+            lengthCheck.classList.add('invalid');
+        }
+
+        // Проверка на заглавные буквы
+        if (/[A-Z]/.test(password)) {
+            uppercaseCheck.classList.remove('invalid');
+            uppercaseCheck.classList.add('valid');
+        } else {
+            uppercaseCheck.classList.remove('valid');
+            uppercaseCheck.classList.add('invalid');
+        }
+
+        // Проверка на цифры
+        if (/\d/.test(password)) {
+            numberCheck.classList.remove('invalid');
+            numberCheck.classList.add('valid');
+        } else {
+            numberCheck.classList.remove('valid');
+            numberCheck.classList.add('invalid');
+        }
+
+        // Проверка на спецсимволы
+        if (/[!@#$%^&*]/.test(password)) {
+            symbolCheck.classList.remove('invalid');
+            symbolCheck.classList.add('valid');
+        } else {
+            symbolCheck.classList.remove('valid');
+            symbolCheck.classList.add('invalid');
+        }
+
+        // Включаем кнопку, если все проверки прошли успешно и пароли совпадают
+        if (password.match(passwordPattern) && password === confirmPassword) {
+            registerBtn.disabled = false;
+            registerBtn.style.background = "linear-gradient(135deg, #00c6ff, #0072ff)";
+        } else {
+            registerBtn.disabled = true;
+            registerBtn.style.background = "grey";
+        }
+    }
+
+    function registerUser() {
+        const login = document.getElementById("login").value;
+        const password = document.getElementById("password").value;
+        const referralCode = document.getElementById("referral-code").value;
+
+        const formData = new FormData();
+        formData.append("username", login);
+        formData.append("password", password);
+        formData.append("referral_code", referralCode);
+
+        fetch('/register', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            console.log("Response status:", response.status);
+            if (response.redirected) {
+                window.location.href = response.url; // Принудительно перенаправляем
+            } else {
+                return response.text(); // Если нет редиректа, читаем ответ
+            }
+        })
+        .then(data => {
+            if (data) {
+                // Если ошибка, показываем её на странице
+                errorMessage.textContent = data;
+                errorMessage.style.display = "block";
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            errorMessage.textContent = "Произошла ошибка при регистрации.";
+            errorMessage.style.display = "block";
+        });
+    }
+</script>
+
+</script>
+</body>
+</html>
