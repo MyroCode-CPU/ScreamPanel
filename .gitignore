@@ -1,0 +1,6 @@
+myro_panel.db
+__pycache__/
+*.pyc
+instance/
+*.db
+*.zip
